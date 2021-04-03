@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-    System.out.println(GetDataFromURL("https://api.coindesk.com/v1/bpi/currentprice.json"));
+    System.out.println(GetDataFromURL("https://example.com"));
     }
 
     private static String GetDataFromURL(String url)
@@ -34,7 +34,10 @@ public class Main {
                 InputStream instream = entity.getContent();
                 try {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
-                    data =  reader.readLine();
+                    String line;
+                    while((line = reader.readLine()) != null) {
+                        data +=  line + "\n";
+                    }
                 } catch (IOException ex) {
                     throw ex;
                 } catch (RuntimeException ex) {
@@ -46,7 +49,7 @@ public class Main {
             }
         } catch (Exception e)
         {
-            return e.toString();
+            data =  e.toString();
         }
         return data;
     }
